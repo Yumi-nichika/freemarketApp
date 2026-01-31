@@ -3,17 +3,13 @@
 namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
-// use App\Http\Requests\LoginRequest;
+use App\Http\Requests\LoginRequest;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Responses\RegisterResponse as CustomRegisterResponse;
 
@@ -40,7 +36,7 @@ class FortifyServiceProvider extends ServiceProvider
         //登録画面処理（バリデーション・DB登録）
         Fortify::createUsersUsing(CreateNewUser::class);
 
-        //登録後の自動ログインブロック、ログイン画面に遷移
+        //登録後、プロフィール設定画面に遷移
         $this->app->singleton(
             RegisterResponse::class,
             CustomRegisterResponse::class
@@ -53,7 +49,7 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         //ログイン時のバリデーションをカスタム
-        // $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+        $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
 
         //連続ログインブロック
         RateLimiter::for('login', function (Request $request) {

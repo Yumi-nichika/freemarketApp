@@ -89,7 +89,7 @@
     color: var(--main_color);
 }
 
-.content-title { 
+.content-title {
     text-align: center;
 }
 
@@ -147,8 +147,12 @@ input[type="password"] {
     text-align: center;
 }
 
-.mt20 {
-    margin-top: 20px;
+.mt30 {
+    margin-top: 30px;
+}
+
+.mb30 {
+    margin-bottom: 30px;
 }
 
 .w100 {

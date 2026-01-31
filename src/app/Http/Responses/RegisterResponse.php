@@ -9,9 +9,6 @@ class RegisterResponse implements RegisterResponseContract
 {
     public function toResponse($request)
     {
-        // Fortifyの自動ログインを解除
-        Auth::logout();
-
-        return redirect('/login');
+        return redirect('/mypage/profile');
     }
 }
