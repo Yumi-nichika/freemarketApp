@@ -15,9 +15,10 @@ use App\Http\Controllers\MypageController;
 |
 */
 
-Route::middleware('auth')->group(function () {
-    Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index']);
 
+
+Route::middleware('auth')->group(function () {
     Route::get('/mypage', [MypageController::class, 'index']);
     Route::get('/mypage/profile', [MypageController::class, 'edit']);
     Route::post('/mypage/profile', [MypageController::class, 'update']);

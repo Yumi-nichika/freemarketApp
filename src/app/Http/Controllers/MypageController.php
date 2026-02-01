@@ -91,7 +91,7 @@ class MypageController extends Controller
             Storage::disk('public')->delete($oldIconPath);
         }
 
-        // ---------- リダイレクト分岐 ----------
+        //リダイレクト分岐
         return $isNew
             ? redirect('/')
             : redirect('/mypage');
