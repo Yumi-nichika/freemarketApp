@@ -20,25 +20,14 @@
         <form class="form" action="/mypage/profile" method="post" enctype="multipart/form-data">
             @csrf
             <div class="icon-upload">
-                <!-- アイコン表示 -->
                 <div class="icon-preview">
                     <img id="iconPreview"
-                        src="{{ session('tmp_icon_path')
-            ? asset('storage/' . session('tmp_icon_path'))
-            : ($user->icon_path
-                ? asset('storage/' . $user->icon_path)
-                : asset('img/icon_default.png')) }}"
-                        alt="icon">
+                        src="{{ session('tmp_icon_path') ? asset('storage/' . session('tmp_icon_path'))
+                        : ($user_profile->icon_path ? asset('storage/' . $user_profile->icon_path) : asset('img/icon_default.png')) }}" alt="icon">
                 </div>
-
-                <!-- ファイル選択 -->
-                <label class="icon-select-button">
+                <label class="button_red_square">
                     画像を選択する
-                    <input type="file"
-                        name="icon"
-                        accept="image/*"
-                        hidden
-                        onchange="previewIcon(this)">
+                    <input type="file" name="icon" accept="image/*" hidden onchange="previewIcon(this)">
                 </label>
             </div>
             @error('icon')
@@ -68,7 +57,7 @@
                 </div>
                 <div class="form__group-content">
                     <div class="form__input--text">
-                        <input type="text" name="post_code" value="{{ old('post_code', $user->post_code) }}" />
+                        <input type="text" name="post_code" value="{{ old('post_code', $user_profile->post_code) }}" />
                     </div>
                     @error('post_code')
                     <ul class="form-error">
@@ -83,7 +72,7 @@
                 </div>
                 <div class="form__group-content">
                     <div class="form__input--text">
-                        <input type="text" name="address" value="{{ old('address', $user->address) }}" />
+                        <input type="text" name="address" value="{{ old('address', $user_profile->address) }}" />
                     </div>
                     @error('address')
                     <ul class="form-error">
@@ -98,7 +87,7 @@
                 </div>
                 <div class="form__group-content">
                     <div class="form__input--text">
-                        <input type="text" name="building" value="{{ old('building', $user->building) }}" />
+                        <input type="text" name="building" value="{{ old('building', $user_profile->building) }}" />
                     </div>
                     @error('building')
                     <ul class="form-error">

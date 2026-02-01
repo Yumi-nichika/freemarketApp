@@ -19,7 +19,9 @@ $showRight = View::getSection('show-right') === 'true';
     <header class="header">
         <div class="header__inner">
             <div class="header__left">
-                <img src="{{ asset('img/logo.png') }}">
+                <a href="/">
+                    <img src="{{ asset('img/logo.png') }}">
+                </a>
             </div>
 
             <div class="header__center">

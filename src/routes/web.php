@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
 
 /*
@@ -16,7 +16,7 @@ use App\Http\Controllers\MypageController;
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/', [ItemController::class, 'index']);
 
     Route::get('/mypage', [MypageController::class, 'index']);
     Route::get('/mypage/profile', [MypageController::class, 'edit']);

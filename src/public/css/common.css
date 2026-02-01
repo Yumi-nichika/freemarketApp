@@ -70,6 +70,16 @@
     color: #0174cc;
 }
 
+.button_red_square {
+    padding: 8px 16px;
+    border: 1px solid #ff5555;
+    background-color: #fff;
+    color: #ff5555;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+
 .button_submit {
     width: 100%;
     background: #ff5555;
@@ -157,4 +167,8 @@ input[type="password"] {
 
 .w100 {
     width: 100%;
+}
+
+.w30 {
+    width: 30%;
 }

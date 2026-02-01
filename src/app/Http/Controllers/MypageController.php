@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Models\UserProfile;
 
 class MypageController extends Controller
 {
@@ -15,7 +14,12 @@ class MypageController extends Controller
      */
     public function index()
     {
-        return view('mypage');
+        $user = Auth::user();
+
+        $user_id = auth()->id();
+        $user_profile = UserProfile::find($user_id);
+
+        return view('mypage', compact('user', 'user_profile'));
     }
 
     /**
@@ -24,50 +28,72 @@ class MypageController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('profile', compact('user'));
+
+        $user_id = auth()->id();
+
+        $user_profile = UserProfile::firstOrNew([
+            'user_id' => $user->id,
+        ]);
+
+        return view('profile', compact('user', 'user_profile'));
     }
 
+
     /**
-     * プロフィール更新
+     * プロフィール更新（初回作成＋更新共通）
      */
     public function update(ProfileRequest $request)
     {
         $user = auth()->user();
 
-        $data = $request->only([
-            'name',
+        //ユーザー名更新
+        $user->update($request->only(['name']));
+
+        //プロフィール作成・更新
+        $user_profile = UserProfile::firstOrNew([
+            'user_id' => $user->id,
+        ]);
+
+        //プロフィールが存在していなかったら「true」→新規作成
+        $isNew = ! $user_profile->exists;
+
+        $data_profile = $request->only([
             'post_code',
             'address',
             'building',
         ]);
 
-        // tmp が存在する場合のみ処理
-        if (session()->has('tmp_icon_path')) {
+        //旧アイコン退避
+        $oldIconPath = $user_profile->icon_path;
 
+        //アイコンがあったら保存
+        if (session()->has('tmp_icon_path')) {
             $tmpPath = session('tmp_icon_path');
 
-            // 旧アイコンを退避
-            $oldIconPath = $user->icon_path;
-
-            // tmp → icons に移動
             $newPath = str_replace('tmp/', 'icons/', $tmpPath);
-
             Storage::disk('public')->move($tmpPath, $newPath);
 
-            // DB保存用
-            $data['icon_path'] = $newPath;
+            $data_profile['icon_path'] = $newPath;
 
-            // 旧アイコン削除（存在＆デフォルト以外）
-            if ($oldIconPath && Storage::disk('public')->exists($oldIconPath)) {
-                Storage::disk('public')->delete($oldIconPath);
-            }
-
-            // session クリア
             session()->forget('tmp_icon_path');
         }
 
-        $user->update($data);
+        //プロフィール保存
+        $user_profile->fill($data_profile);
+        $user_profile->save();
 
-        return view('mypage');
+        //旧アイコン削除
+        if (
+            isset($data_profile['icon_path']) &&
+            $oldIconPath &&
+            Storage::disk('public')->exists($oldIconPath)
+        ) {
+            Storage::disk('public')->delete($oldIconPath);
+        }
+
+        // ---------- リダイレクト分岐 ----------
+        return $isNew
+            ? redirect('/')
+            : redirect('/mypage');
     }
 }
