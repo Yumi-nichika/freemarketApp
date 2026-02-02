@@ -17,6 +17,9 @@ use App\Http\Controllers\MypageController;
 
 Route::get('/', [ItemController::class, 'index']);
 
+Route::get('/item/{item_id}', [ItemController::class, 'show']);
+Route::post('/item/{item_id}/mylist', [ItemController::class, 'mylist']);
+Route::post('/item/{item_id}/comment', [ItemController::class, 'comment']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/mypage', [MypageController::class, 'index']);

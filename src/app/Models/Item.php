@@ -40,6 +40,11 @@ class Item extends Model
     //cateroriesテーブルとは中間テーブルで紐づく
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(
+            Category::class,
+            'category_item',
+            'item_id',
+            'category_id'
+        );
     }
 }

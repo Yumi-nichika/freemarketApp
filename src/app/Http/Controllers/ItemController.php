@@ -24,4 +24,13 @@ class ItemController extends Controller
 
         return view('index', compact('items'));
     }
+
+    /**
+     * 商品詳細画表示
+     */
+    public function show($item_id)
+    {
+        $item = Item::with('condition', 'categories')->find($item_id);
+        return view('item', compact('item'));
+    }
 }

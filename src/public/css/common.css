@@ -157,8 +157,16 @@ input[type="password"] {
     text-align: center;
 }
 
+.mt20 {
+    margin-top: 20px;
+}
+
 .mt30 {
     margin-top: 30px;
+}
+
+.mt50 {
+    margin-top: 50px;
 }
 
 .mb30 {
@@ -171,4 +179,10 @@ input[type="password"] {
 
 .w30 {
     width: 30%;
+}
+
+/* aタグ */
+.no-link {
+  text-decoration: none;
+  color: inherit;
 }

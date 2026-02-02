@@ -34,12 +34,14 @@
                 <div class="grid">
                     @foreach($items as $item)
                     <div class="item">
-                        <div class="item__img">
-                            <img src="{{ asset('storage/' . $item->item_path) }}" alt="" />
-                        </div>
-                        <div class="item__name">
-                            <p>{{ $item->item_name }}</p>
-                        </div>
+                        <a href="/item/{{ $item->id }}" class="no-link">
+                            <div class="item_img">
+                                <img src="{{ asset('storage/' . $item->item_path) }}" alt="{{ $item->item_name }}" />
+                            </div>
+                            <div class="item_name">
+                                <p>{{ $item->item_name }}</p>
+                            </div>
+                        </a>
                     </div>
                     @endforeach
                 </div>
