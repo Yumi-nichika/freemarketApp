@@ -24,6 +24,10 @@ class UserProfile extends Model
     //usersテーブルのデータを参照
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(
+            User::class,
+            'user_id',
+            'id'
+        );
     }
 }

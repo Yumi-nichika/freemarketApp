@@ -48,9 +48,11 @@
             </div>
         </div>
 
-        <div class="list mylist {{ auth()->check() ? '' : 'mylist_is-hidden' }}">
+        @auth
+        <div class="list mylist">
             いいね一覧の内容
         </div>
+        @endauth
     </div>
 
 </div>

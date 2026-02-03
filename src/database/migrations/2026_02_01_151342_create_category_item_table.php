@@ -20,7 +20,7 @@ class CreateCategoryItemTable extends Migration
             // 複合主キー
             $table->primary(['item_id', 'category_id']);
 
-            // 外部キー（推奨）
+            // 外部キー
             $table->foreign('item_id')
                 ->references('id')->on('items')
                 ->onDelete('cascade');

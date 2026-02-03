@@ -23,16 +23,29 @@
                 <p>{{ $item->brand_name }}</p>
                 <p class="item_details_price"><span>￥</span>{{ number_format($item->price) }}<span>（税込）</span></p>
                 <div class="reaction_icons">
+                    @auth
                     <div class="icon">
-                        <form action="/item/{{ $item->id }}/mylist" method="post">
+                        <form action="/item/{{ $item->id }}/like" method="post">
                             @csrf
-                            <button type="submit"><img src="{{ asset('img/hart_off.png') }}"></button>
+                            <button type="submit">
+                                @if($like_count == 0)
+                                <img src="{{ asset('img/hart_off.png') }}">
+                                @else
+                                <img src="{{ asset('img/hart_on.png') }}">
+                                @endif
+                            </button>
                         </form>
-                        <p class="tac">0</p>
+                        <p class="tac">{{ $likes_count }}</p>
                     </div>
+                    @else
+                    <div class="icon">
+                        <img src="{{ asset('img/hart_off.png') }}">
+                        <p class="tac">{{ $likes_count }}</p>
+                    </div>
+                    @endauth
                     <div class="icon">
                         <img src="{{ asset('img/fukidashi.png') }}">
-                        <p class="tac">0</p>
+                        <p class="tac">{{ $comments->count() }}</p>
                     </div>
                 </div>
                 <a href="/purchase/{{ $item->id }}" class="button button_submit">購入手続きへ</a>
@@ -65,18 +78,35 @@
                 </div>
 
                 <div class="mt50">
+                    <h2 class="cGray">コメント({{ $comments->count() }})</h2>
+                    @foreach($comments as $comment)
+                    <div class="item_details_comment_user">
+                        <div class="icon-preview">
+                            <img src="{{ $comment->profile->icon_path ? asset('storage/' . $comment->profile->icon_path) : asset('img/icon_default.png') }}" alt="icon">
+                        </div>
+                        <p>{{ $comment->user->name }}</p>
+                    </div>
+                    <p class="item_details_comment">{{ $comment->comment }}</p>
+                    @endforeach
+                </div>
+
+                <div class="mt50">
                     <h3>商品へのコメント</h3>
+                    @auth
                     <form action="/item/{{ $item->id }}/comment" method="post">
                         @csrf
                         <textarea name="comment">{{ old('comment', request('comment')) }}</textarea>
-                        @error('password')
+                        @error('comment')
                         <ul class="form-error">
                             <li>{{ $message }}</li>
                         </ul>
                         @enderror
                         <button class="button button_submit mt20" type="submit">コメントを送信する</button>
                     </form>
-
+                    @else
+                    <textarea name="comment"></textarea>
+                    <button class="button button_submit mt20" type="button">コメントを送信する</button>
+                    @endauth
                 </div>
             </div>
         </div>
