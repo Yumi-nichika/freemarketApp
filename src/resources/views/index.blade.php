@@ -50,7 +50,22 @@
 
         @auth
         <div class="list mylist">
-            いいね一覧の内容
+            <div class="list-content">
+                <div class="grid">
+                    @foreach($likes as $like)
+                    <div class="item">
+                        <a href="/item/{{ $like->item->id }}" class="no-link">
+                            <div class="item_img">
+                                <img src="{{ asset('storage/' . $like->item->item_path) }}" alt="{{ $like->item->item_name }}" />
+                            </div>
+                            <div class="item_name">
+                                <p>{{ $like->item->item_name }}</p>
+                            </div>
+                        </a>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
         @endauth
     </div>

@@ -17,14 +17,18 @@ class ItemController extends Controller
     {
         $query = Item::query();
 
-        //ログインしている場合、自分が出品した商品を除く
+        //ログインしている場合
         if (Auth::check()) {
-            $query->where('seller_user_id', '!=', Auth::id());
+            //商品一覧自分が出品した商品を除く
+            $query->where('seller_user_id', '!=', auth()->id());
+
+            //マイリスト
+            $likes = Like::with('item')->where('user_id', auth()->id())->get();
         }
 
         $items = $query->get();
 
-        return view('index', compact('items'));
+        return view('index', compact('items', 'likes'));
     }
 
     /**
