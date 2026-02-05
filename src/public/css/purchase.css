@@ -76,3 +76,27 @@
 .address {
     margin-left: 20px;
 }
+
+.sub_total_table {
+    width: 100%;
+    border: 1px solid #000;
+    margin-bottom: 50px;
+}
+
+.sub_total_table tr {
+    border: 1px solid #000;
+}
+
+.sub_total_table td {
+    padding: 20px 0;
+}
+
+.sub_total_table_header {
+    width: 50%;
+    padding-right: 30px !important;
+    text-align: right;
+}
+
+.payment_method {
+    font-size: 20px;
+}

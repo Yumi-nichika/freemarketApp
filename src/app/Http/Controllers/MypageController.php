@@ -29,8 +29,6 @@ class MypageController extends Controller
     {
         $user = Auth::user();
 
-        $user_id = auth()->id();
-
         $user_profile = UserProfile::firstOrNew([
             'user_id' => $user->id,
         ]);
