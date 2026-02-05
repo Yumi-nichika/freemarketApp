@@ -17,6 +17,8 @@ class ItemController extends Controller
     {
         $query = Item::query();
 
+        $likes = null;
+
         //ログインしている場合
         if (Auth::check()) {
             //商品一覧自分が出品した商品を除く

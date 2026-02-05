@@ -13,9 +13,9 @@
 
 @section('main')
 <div class="content">
-    <h2 class="content-title">
+    <h1 class="content-title">
         住所の変更
-    </h2>
+    </h1>
     <div class="content-form">
         <form class="form" action="/purchase/address/{{ $item_id }}" method="post">
             @csrf

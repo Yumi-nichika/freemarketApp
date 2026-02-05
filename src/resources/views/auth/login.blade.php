@@ -9,9 +9,9 @@
 
 @section('main')
 <div class="content">
-    <h2 class="content-title">
+    <h1 class="content-title">
         ログイン
-    </h2>
+    </h1>
     <div class="content-form">
         <form class="form" action="/login" method="post" novalidate>
             @csrf

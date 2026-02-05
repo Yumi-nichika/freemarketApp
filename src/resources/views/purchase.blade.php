@@ -31,7 +31,7 @@
                         <select id="pay_select">
                             <option value="">選択してください</option>
                             @foreach($pays as $pay)
-                            <option value="{{ $pay->id}}">{{ $pay->payment_method }}</option>
+                            <option value="{{ $pay->id }}">{{ $pay->payment_method }}</option>
                             @endforeach
                         </select>
                     </div>
