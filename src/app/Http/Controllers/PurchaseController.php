@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-use App\Models\PaymentMethod;
 use App\Models\UserProfile;
 use App\Http\Requests\AddressRequest;
 
@@ -16,12 +15,15 @@ class PurchaseController extends Controller
     {
         $item = Item::find($item_id);
 
-        $pays = PaymentMethod::all();
-
         $profile = UserProfile::find(auth()->id());
 
-        return view('purchase', compact('item', 'pays', 'profile'));
+        return view('purchase', compact('item', 'profile'));
     }
+
+    /**
+     * 購入
+     */
+    public function store() {}
 
     /**
      * 送付先住所変更画面表示
@@ -36,7 +38,7 @@ class PurchaseController extends Controller
     /**
      * 住所更新
      */
-    public function update(AddressRequest $request,$item_id)
+    public function update(AddressRequest $request, $item_id)
     {
         $user_profile = UserProfile::find(auth()->id());
 

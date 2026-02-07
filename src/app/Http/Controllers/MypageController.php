@@ -6,6 +6,8 @@ use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\UserProfile;
+use App\Models\Item;
+use App\Models\SoldItem;
 
 class MypageController extends Controller
 {
@@ -15,11 +17,11 @@ class MypageController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $user_profile = UserProfile::find($user->id);
+        $items = Item::where('user_id', $user->id)->get();
+        $sold_items = SoldItem::with('item')->where('user_id', $user->id)->get();
 
-        $user_id = auth()->id();
-        $user_profile = UserProfile::find($user_id);
-
-        return view('mypage', compact('user', 'user_profile'));
+        return view('mypage', compact('user', 'user_profile', 'items', 'sold_items'));
     }
 
     /**
@@ -35,7 +37,6 @@ class MypageController extends Controller
 
         return view('profile', compact('user', 'user_profile'));
     }
-
 
     /**
      * プロフィール更新（初回作成＋更新共通）
@@ -81,17 +82,11 @@ class MypageController extends Controller
         $user_profile->save();
 
         //旧アイコン削除
-        if (
-            isset($data_profile['icon_path']) &&
-            $oldIconPath &&
-            Storage::disk('public')->exists($oldIconPath)
-        ) {
+        if (isset($data_profile['icon_path']) && $oldIconPath && Storage::disk('public')->exists($oldIconPath)) {
             Storage::disk('public')->delete($oldIconPath);
         }
 
         //リダイレクト分岐
-        return $isNew
-            ? redirect('/')
-            : redirect('/mypage');
+        return $isNew ? redirect('/') : redirect('/mypage');
     }
 }

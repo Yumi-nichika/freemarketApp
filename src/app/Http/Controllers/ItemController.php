@@ -22,7 +22,7 @@ class ItemController extends Controller
         //ログインしている場合
         if (Auth::check()) {
             //商品一覧自分が出品した商品を除く
-            $query->where('seller_user_id', '!=', auth()->id());
+            $query->where('user_id', '!=', auth()->id());
 
             //マイリスト
             $likes = Like::with('item')->where('user_id', auth()->id())->get();

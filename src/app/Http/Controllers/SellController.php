@@ -36,7 +36,7 @@ class SellController extends Controller
         ]);
 
         //出品ユーザー追加
-        $data['seller_user_id'] = auth()->id();
+        $data['user_id'] = auth()->id();
 
         //商品画像のパス追加
         if (session()->has('tmp_item_image_path')) {

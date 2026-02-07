@@ -28,11 +28,10 @@
                 <div class="box">
                     <h2>支払い方法</h2>
                     <div class="payment">
-                        <select id="pay_select">
+                        <select id="pay_select" name="payment_method">
                             <option value="">選択してください</option>
-                            @foreach($pays as $pay)
-                            <option value="{{ $pay->id }}">{{ $pay->payment_method }}</option>
-                            @endforeach
+                            <option value="1" {{ (old('payment_method') == 1) ? 'selected' : '' }}>コンビニ払い</option>
+                            <option value="2" {{ (old('payment_method') == 2) ? 'selected' : '' }}>カード支払い</option>
                         </select>
                     </div>
                 </div>

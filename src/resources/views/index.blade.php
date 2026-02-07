@@ -15,14 +15,18 @@
 <div class="listToggle">
     <!-- 切り替え用 -->
     <input type="radio" name="tab" id="tab-recommend"
-        {{ auth()->check() ? '' : 'checked' }}>
+        {{ request('tab') !== 'mylist' ? 'checked' : '' }}>
 
     <input type="radio" name="tab" id="tab-mylist"
-        {{ auth()->check() ? 'checked' : '' }}>
+        {{ request('tab') === 'mylist' ? 'checked' : '' }}>
 
     <div class="listToggle__buttons">
-        <label for="tab-recommend">おすすめ</label>
-        <label for="tab-mylist">マイリスト</label>
+        <label for="tab-recommend">
+            <a href="/" class="tab-link">おすすめ</a>
+        </label>
+        <label for="tab-mylist">
+            <a href="/?tab=mylist" class="tab-link">マイリスト</a>
+        </label>
     </div>
 
     <div class="listToggle__line"></div>

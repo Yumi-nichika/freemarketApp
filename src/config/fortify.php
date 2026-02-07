@@ -158,7 +158,7 @@ return [
     ],
 
     'redirects' => [
-        'login' => '/',
+        'login' => '/?tab=mylist',
         'logout' => '/login',
     ],
 ];

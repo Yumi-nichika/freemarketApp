@@ -10,8 +10,7 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'seller_user_id',
-        'purchaser_user_id',
+        'user_id',
         'item_name',
         'brand_name',
         'price',
@@ -21,12 +20,7 @@ class Item extends Model
     ];
 
     //usersテーブルのデータを参照
-    public function seller_user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function purchaser_user()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

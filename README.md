@@ -36,6 +36,7 @@ cp .env.example .env
 ```
 
 ### 4. .envファイルを編集
+DB接続情報を変更
 ```env
 DB_HOST=mysql
 DB_DATABASE=laravel_db
