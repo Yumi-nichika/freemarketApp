@@ -61,11 +61,13 @@
                         <tr class="table_row">
                             <th class="table_header">カテゴリー</th>
                             <td class="table_text">
-                                @foreach($item->categories as $category)
-                                <span class="category">
-                                    {{ $category->category }}
-                                </span>
-                                @endforeach
+                                <div class="categries">
+                                    @foreach($item->categories as $category)
+                                    <span class="category">
+                                        {{ $category->category }}
+                                    </span>
+                                    @endforeach
+                                </div>
                             </td>
                         </tr>
                         <tr class="table_row">

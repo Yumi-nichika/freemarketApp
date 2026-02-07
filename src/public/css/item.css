@@ -67,7 +67,7 @@
 .item_details_table {
     border: none;
     border-collapse: separate;
-    border-spacing: 0 10px;
+    border-spacing: 0 20px;
 }
 
 .table_header {
@@ -77,6 +77,12 @@
 
 .table_text {
     padding-left: 30px;
+}
+
+.categries {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .category {

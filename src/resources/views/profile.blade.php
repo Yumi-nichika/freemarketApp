@@ -21,9 +21,13 @@
             @csrf
             <div class="icon-upload">
                 <div class="icon-preview">
-                    <img id="iconPreview"
-                        src="{{ session('tmp_icon_path') ? asset('storage/' . session('tmp_icon_path'))
-                        : ($user_profile->icon_path ? asset('storage/' . $user_profile->icon_path) : asset('img/icon_default.png')) }}" alt="icon">
+                    @if (session('tmp_icon_path'))
+                    <img id="iconPreview" src="{{ asset('storage/' . session('tmp_icon_path')) }}" alt="">
+                    @elseif (!empty($user_profile->icon_path))
+                    <img id="iconPreview" src="{{ asset('storage/' . $user_profile->icon_path) }}" alt="">
+                    @else
+                    <img id="iconPreview" src="{{ asset('img/icon_default.png') }}" alt="">
+                    @endif
                 </div>
                 <label class="button_red_square">
                     画像を選択する
@@ -109,10 +113,13 @@
     function previewIcon(input) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
+            const file = input.files[0];
+            const preview = document.getElementById('iconPreview');
+
             reader.onload = function(e) {
-                document.getElementById('iconPreview').src = e.target.result;
+                preview.src = e.target.result;
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(file);
         }
     }
 </script>

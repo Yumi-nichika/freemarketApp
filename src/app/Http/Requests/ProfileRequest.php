@@ -15,10 +15,10 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:20',
-            'post_code' => 'required|regex:/^\d{3}-\d{4}$/',
-            'address' => 'required',
-            'icon' => 'nullable|image|mimes:jpeg,png',
+            'name' => ['required', 'string', 'max:20'],
+            'post_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
+            'address' => ['required'],
+            'icon' => ['nullable', 'image', 'mimes:jpeg,png'],
         ];
     }
 

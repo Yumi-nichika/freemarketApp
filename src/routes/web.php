@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/comment', [ItemController::class, 'comment']);
 
     Route::get('/sell', [SellController::class, 'index']);
+    Route::post('/sell', [SellController::class, 'store']);
 
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'index']);
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit']);
