@@ -23,7 +23,6 @@
                 <p>{{ $item->brand_name }}</p>
                 <p class="item_details_price"><span>￥</span>{{ number_format($item->price) }}<span>（税込）</span></p>
                 <div class="reaction_icons">
-                    @auth
                     <div class="icon">
                         <form action="/item/{{ $item->id }}/like" method="post">
                             @csrf
@@ -37,18 +36,16 @@
                         </form>
                         <p class="tac">{{ $likes_count }}</p>
                     </div>
-                    @else
-                    <div class="icon">
-                        <img src="{{ asset('img/hart_off.png') }}">
-                        <p class="tac">{{ $likes_count }}</p>
-                    </div>
-                    @endauth
                     <div class="icon">
                         <img src="{{ asset('img/fukidashi.png') }}">
                         <p class="tac">{{ $comments->count() }}</p>
                     </div>
                 </div>
+                @if(!empty($item->soldItem))
+                <p class="sold">sold</p>
+                @else
                 <a href="/purchase/{{ $item->id }}" class="button button_submit">購入手続きへ</a>
+                @endif
 
                 <div class="mt50">
                     <h2>商品説明</h2>

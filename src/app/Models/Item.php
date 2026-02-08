@@ -31,6 +31,12 @@ class Item extends Model
         return $this->belongsTo(Condition::class);
     }
 
+    //sold_itemsテーブルのデータを参照
+    public function soldItem()
+    {
+        return $this->hasOne(SoldItem::class, 'item_id');
+    }
+
     //cateroriesテーブルとは中間テーブルで紐づく
     public function categories()
     {

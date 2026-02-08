@@ -62,7 +62,7 @@
     -moz-appearance: none;
 }
 
-.address_title {
+.shipping_title {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -73,8 +73,28 @@
     text-decoration: none;
 }
 
-.address {
+.shipping {
     margin-left: 20px;
+}
+
+.shipping_address {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.shipping input {
+    width: fit-content;
+    min-width: 1ch;
+    padding: 4px 6px;
+    outline: none;
+    border: none;
+    font-size: 16px;
+}
+
+input[type="text"] {
+    appearance: none;
+    color: var(--main_color);
 }
 
 .sub_total_table {

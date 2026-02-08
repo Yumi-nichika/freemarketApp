@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Like;
@@ -15,7 +16,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $query = Item::query();
+        $query = Item::with('soldItem');
 
         $likes = null;
 
@@ -25,7 +26,7 @@ class ItemController extends Controller
             $query->where('user_id', '!=', auth()->id());
 
             //マイリスト
-            $likes = Like::with('item')->where('user_id', auth()->id())->get();
+            $likes = Like::with('item.soldItem')->where('user_id', auth()->id())->get();
         }
 
         $items = $query->get();
@@ -34,12 +35,42 @@ class ItemController extends Controller
     }
 
     /**
+     * 検索
+     */
+    public function search(Request $request)
+    {
+        $free = $request->free;
+
+        $query = Item::with('soldItem');
+        $likes = null;
+
+        //ログインしている場合
+        if (Auth::check()) {
+            //商品一覧自分が出品した商品を除く
+            $query->where('user_id', '!=', auth()->id());
+
+            //マイリスト
+            $likes = Like::with('item.soldItem')
+                ->where('user_id', auth()->id())
+                ->whereHas('item', function ($query) use ($free) {
+                    $query->where('item_name', 'like', "%{$free}%");
+                })->get();
+        }
+
+        $items = $query->where('item_name', 'LIKE', "%{$free}%")->get();
+
+        return view('index', compact('items', 'likes'));
+    }
+
+
+
+    /**
      * 商品詳細画表示
      */
     public function show($item_id)
     {
         //商品情報
-        $item = Item::with('condition', 'categories')->find($item_id);
+        $item = Item::with('condition', 'categories', 'soldItem')->find($item_id);
 
         //この商品の全体のいいね数
         $likes = Like::where('item_id', $item_id)->get();

@@ -19,21 +19,24 @@ use App\Http\Controllers\MypageController;
 
 Route::get('/', [ItemController::class, 'index']);
 
+Route::get('/search', [ItemController::class, 'search']);
+
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
 
 Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/like', [ItemController::class, 'like']);
     Route::post('/item/{item_id}/comment', [ItemController::class, 'comment']);
 
-    Route::get('/sell', [SellController::class, 'index']);
-    Route::post('/sell', [SellController::class, 'store']);
-
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'index']);
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'show']);
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store']);
+
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit']);
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'update']);
 
-    Route::get('/mypage', [MypageController::class, 'index']);
+    Route::get('/sell', [SellController::class, 'show']);
+    Route::post('/sell', [SellController::class, 'store']);
+
+    Route::get('/mypage', [MypageController::class, 'show']);
     Route::get('/mypage/profile', [MypageController::class, 'edit']);
     Route::post('/mypage/profile', [MypageController::class, 'update']);
 });

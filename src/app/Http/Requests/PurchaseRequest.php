@@ -14,17 +14,30 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'post_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
-            'address' => ['required'],
+            'payment_method' => ['required'],
+            'shipping' => ['required', 'array'],
         ];
     }
 
     public function messages()
     {
         return [
-            'post_code.required' => '郵便番号を入力してください',
-            'post_code.regex' => '郵便番号はハイフンありの8文字で入力してください',
-            'address.required' => '住所を入力してください',
+            'payment_method.required' => '支払い方法を選択してください',
+            'shipping.required' => '配送先を入力してください',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $shipping = $this->input('shipping', []);
+
+            if (empty(trim($shipping['post_code'] ?? '')) &&empty(trim($shipping['address'] ?? ''))) {
+                $validator->errors()->add(
+                    'shipping',
+                    '配送先を入力してください'
+                );
+            }
+        });
     }
 }

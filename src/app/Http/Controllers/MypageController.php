@@ -14,7 +14,7 @@ class MypageController extends Controller
     /**
      * プロフィール画面表示
      */
-    public function index()
+    public function show()
     {
         $user = Auth::user();
         $user_profile = UserProfile::find($user->id);

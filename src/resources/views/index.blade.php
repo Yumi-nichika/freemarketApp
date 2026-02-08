@@ -22,10 +22,10 @@
 
     <div class="listToggle__buttons">
         <label for="tab-recommend">
-            <a href="/" class="tab-link">おすすめ</a>
+            <a href="{{ request()->fullUrlWithQuery(['tab' => null]) }}" class="tab-link">おすすめ</a>
         </label>
         <label for="tab-mylist">
-            <a href="/?tab=mylist" class="tab-link">マイリスト</a>
+            <a href="{{ request()->fullUrlWithQuery(['tab' => 'mylist']) }}" class="tab-link">マイリスト</a>
         </label>
     </div>
 
@@ -44,6 +44,9 @@
                             </div>
                             <div class="item_name">
                                 <p>{{ $item->item_name }}</p>
+                                @if(!empty($item->soldItem))
+                                <p class="sold">sold</p>
+                                @endif
                             </div>
                         </a>
                     </div>
@@ -64,6 +67,9 @@
                             </div>
                             <div class="item_name">
                                 <p>{{ $like->item->item_name }}</p>
+                                @if(!empty($like->item->soldItem))
+                                <p class="sold">sold</p>
+                                @endif
                             </div>
                         </a>
                     </div>

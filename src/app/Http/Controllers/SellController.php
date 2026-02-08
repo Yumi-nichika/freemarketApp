@@ -13,7 +13,7 @@ class SellController extends Controller
     /**
      * 商品出品画面表示
      */
-    public function index()
+    public function show()
     {
         $conditions = Condition::all();
         $categries = Category::all();

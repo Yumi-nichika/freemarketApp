@@ -141,3 +141,8 @@ textarea {
     white-space: pre-wrap;
     background-color: #e5e5e5;
 }
+
+.sold {
+    color: #ff0000;
+    font-size: 20px;
+}

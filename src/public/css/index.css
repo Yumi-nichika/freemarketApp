@@ -67,3 +67,13 @@
 .item_img img {
   width: 100%;
 }
+
+.item_name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item_name .sold {
+    color: #ff0000;
+}
