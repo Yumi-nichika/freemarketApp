@@ -47,7 +47,7 @@
             </div>
             <div class="form-button">
                 <button class="button button_submit" type="submit">ログインする</button>
-                <a class="button button_blue mt30 w100" href="/register">会員登録はこちら</a>
+                <a class="button_blue" href="/register">会員登録はこちら</a>
             </div>
         </form>
     </div>

@@ -18,7 +18,7 @@
             <div class="profile__left">
                 <div class="icon-preview">
                     <img id="iconPreview"
-                        src="{{ $user_profile->icon_path ? asset('storage/' . $user_profile->icon_path) : asset('img/icon_default.png') }}"
+                        src="{{ $user_profile?->icon_path ? asset('storage/' . $user_profile->icon_path) : asset('img/icon_default.png') }}"
                         alt="icon">
                 </div>
 

@@ -71,9 +71,27 @@
     color: #000;
 }
 
+.button_gray {
+    margin: 0 auto;
+    background: #d9d9d9;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 3px;
+}
+
 .button_blue {
+    display: inline-block;
     background: #fff;
     color: #0174cc;
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button.button_blue {
+    border: none;
+    background-color: #fff;
 }
 
 .button_red_square {
@@ -84,7 +102,6 @@
     border-radius: 3px;
     cursor: pointer;
 }
-
 
 .button_submit {
     width: 100%;
@@ -188,6 +205,6 @@ input[type="password"] {
 
 /* aタグ */
 .no-link {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }

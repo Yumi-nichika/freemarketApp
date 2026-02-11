@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 use App\Models\UserProfile;
 use App\Models\Item;
 use App\Models\SoldItem;
@@ -46,7 +47,9 @@ class MypageController extends Controller
         $user = auth()->user();
 
         //ユーザー名更新
-        $user->update($request->only(['name']));
+        User::where('id', $user->id)->update([
+            'name' => $request->name
+        ]);
 
         //プロフィール作成・更新
         $user_profile = UserProfile::firstOrNew([

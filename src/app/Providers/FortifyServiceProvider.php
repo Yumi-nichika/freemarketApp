@@ -11,7 +11,6 @@ use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
 use Laravel\Fortify\Contracts\RegisterResponse;
-use App\Http\Responses\RegisterResponse as CustomRegisterResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -36,11 +35,13 @@ class FortifyServiceProvider extends ServiceProvider
         //登録画面処理（バリデーション・DB登録）
         Fortify::createUsersUsing(CreateNewUser::class);
 
-        //登録後、プロフィール設定画面に遷移
-        $this->app->singleton(
-            RegisterResponse::class,
-            CustomRegisterResponse::class
-        );
+        //登録後、認証画面へ
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+            public function toResponse($request)
+            {
+                return redirect('/email-sent');
+            }
+        });
 
 
         //「/login」でログイン画面を開く

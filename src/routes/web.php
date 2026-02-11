@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,21 @@ use App\Http\Controllers\MypageController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/email-sent', function () {
+    return view('auth.email-sent');
+});
+Route::post('/resend-code', [VerificationController::class, 'resend']);
+
+Route::get('/verify-code', function () {
+    return view('auth.verify-code');
+});
+
+Route::post('/verify-code', [VerificationController::class, 'verify']);
+
+
+
+
 
 Route::get('/', [ItemController::class, 'index']);
 

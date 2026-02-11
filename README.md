@@ -44,6 +44,11 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 
+送信元メールアドレスを追記
+```env
+MAIL_FROM_ADDRESS=test@example.com
+```
+
 stripeのAPIキーを追記
 ```env
 # stripe公開可能キー
@@ -101,6 +106,8 @@ php artisan key:generate
 ```
 
 phpMyAdmin:http://localhost:8080
+
+mailhog:http://localhost:8025
 
 # stripe決済時のテストデータ
 カード番号：4242424242424242
