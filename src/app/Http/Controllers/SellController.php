@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Condition;
 use App\Models\Category;
 use App\Models\Item;
 use App\Http\Requests\ExhibitionRequest;
@@ -15,10 +14,9 @@ class SellController extends Controller
      */
     public function show()
     {
-        $conditions = Condition::all();
         $categries = Category::all();
 
-        return view('sell', compact('conditions', 'categries'));
+        return view('sell', compact('categries'));
     }
 
     /**

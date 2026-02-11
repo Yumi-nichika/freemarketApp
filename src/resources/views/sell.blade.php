@@ -67,11 +67,10 @@
                 <div class="condition">
                     <select id="condition_select" name="condition_id">
                         <option value="">選択してください</option>
-                        @foreach($conditions as $condition)
-                        <option value="{{ $condition->id }}" {{ (old('condition_id') == $condition->id) ? 'selected' : '' }}>
-                            {{ $condition->condition }}
-                        </option>
-                        @endforeach
+                        <option value="1" {{ (old('condition_id') == 1) ? 'selected' : '' }}>良好</option>
+                        <option value="2" {{ (old('condition_id') == 2) ? 'selected' : '' }}>目立った傷や汚れなし</option>
+                        <option value="3" {{ (old('condition_id') == 3) ? 'selected' : '' }}>やや傷や汚れあり</option>
+                        <option value="4" {{ (old('condition_id') == 4) ? 'selected' : '' }}>状態が悪い</option>
                     </select>
                 </div>
                 @error('condition_id')

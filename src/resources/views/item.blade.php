@@ -70,7 +70,7 @@
                         <tr class="table_row">
                             <th class="table_header">商品の状態</th>
                             <td class="table_text">
-                                {{ $item->condition->condition }}
+                                {{ config('condition.' . $item->condition_id) }}
                             </td>
                         </tr>
                     </table>

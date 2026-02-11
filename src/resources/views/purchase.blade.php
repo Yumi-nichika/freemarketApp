@@ -20,7 +20,9 @@
                 <div class="purchase-content_left">
                     <div class="box">
                         <div class="item_detail">
-                            <img src="{{ asset('storage/' . $item->item_path) }}" alt="{{ $item->item_name }}" />
+                            <div class="item_detail_left">
+                                <img src="{{ asset('storage/' . $item->item_path) }}" alt="{{ $item->item_name }}" />
+                            </div>
                             <div class="item_detail_right">
                                 <h1>{{ $item->item_name }}</h1>
                                 <p class="price"><span>￥</span>{{ number_format($item->price) }}</p>
@@ -32,7 +34,7 @@
                         <div class="payment">
                             <select id="pay_select" name="payment_method">
                                 <option value="">選択してください</option>
-                                <option value="1" {{ (old('payment_method') == 1) ? 'selected' : '' }}>コンビニ払い</option>
+                                <option value="1" {{ (old('payment_method') == 1) ? 'selected' : '' }}>コンビニ支払い</option>
                                 <option value="2" {{ (old('payment_method') == 2) ? 'selected' : '' }}>カード支払い</option>
                             </select>
                         </div>

@@ -46,7 +46,7 @@ class PurchaseController extends Controller
         //stripeで決済
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        //コンビニ払い
+        //コンビニ支払い
         if ($payment_method == 1) {
             $session = Session::create([
                 'payment_method_types' => ['konbini'],
@@ -67,10 +67,10 @@ class PurchaseController extends Controller
                     ],
                 ],
 
-                // 成功したらマイページ
-                'success_url' => url('/mypage?page=buy'),
-                // キャンセル・失敗時は購入画面に戻す
-                'cancel_url' => url("/purchase/{$item_id}"),
+                //成功
+                'success_url' => url('/'),
+                //キャンセル
+                'cancel_url' => url("/"),
             ]);
         }
 
@@ -84,16 +84,16 @@ class PurchaseController extends Controller
                         'product_data' => [
                             'name' => $item_name,
                         ],
-                        'unit_amount' => $price, // 1000円
+                        'unit_amount' => $price,
                     ],
                     'quantity' => 1,
                 ]],
                 'mode' => 'payment',
 
-                // 成功したらマイページ
-                'success_url' => url('/mypage?page=buy'),
-                // キャンセル・失敗時は購入画面に戻す
-                'cancel_url' => url("/purchase/{$item_id}"),
+                //成功
+                'success_url' => url('/'),
+                //キャンセル
+                'cancel_url' => url("/"),
             ]);
         }
         return redirect($session->url);

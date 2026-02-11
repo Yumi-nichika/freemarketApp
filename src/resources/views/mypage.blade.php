@@ -61,9 +61,7 @@
                         <div class="item_img">
                             <img src="{{ asset('storage/' . $item->item_path) }}" alt="{{ $item->item_name }}" />
                         </div>
-                        <div class="item_name">
-                            <p>{{ $item->item_name }}</p>
-                        </div>
+                        <p>{{ $item->item_name }}</p>
                     </div>
                     @endforeach
                 </div>
@@ -79,9 +77,7 @@
                         <div class="item_img">
                             <img src="{{ asset('storage/' . $sold_item->item->item_path) }}" alt="{{ $sold_item->item->item_name }}" />
                         </div>
-                        <div class="item_name">
-                            <p>{{ $sold_item->item->item_name }}</p>
-                        </div>
+                        <p>{{ $sold_item->item->item_name }}</p>
                     </div>
                     @endforeach
                 </div>

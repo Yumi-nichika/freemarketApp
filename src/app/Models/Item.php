@@ -25,12 +25,6 @@ class Item extends Model
         return $this->belongsTo(User::class);
     }
 
-    //conditionsテーブルのデータを参照
-    public function condition()
-    {
-        return $this->belongsTo(Condition::class);
-    }
-
     //sold_itemsテーブルのデータを参照
     public function soldItem()
     {

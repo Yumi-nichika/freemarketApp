@@ -1,9 +1,16 @@
 .item-content {
     display: flex;
+    gap: 20px;
+}
+
+.item_img {
+    width: 50%;
 }
 
 .item_img img {
-    width: 50%;
+    width: 60%;
+    height: auto;
+    display: block;
 }
 
 .item_details {

@@ -15,8 +15,14 @@
     gap: 50px;
 }
 
-.item_detail img {
-    width: 40%;
+.item_detail_left {
+    width: 50%;
+}
+
+.item_detail_left img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .purchase-content_right {

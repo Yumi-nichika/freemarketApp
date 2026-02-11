@@ -42,12 +42,10 @@
                             <div class="item_img">
                                 <img src="{{ asset('storage/' . $item->item_path) }}" alt="{{ $item->item_name }}" />
                             </div>
-                            <div class="item_name">
-                                <p>{{ $item->item_name }}</p>
-                                @if(!empty($item->soldItem))
-                                <p class="sold">sold</p>
-                                @endif
-                            </div>
+                            <p>{{ $item->item_name }}</p>
+                            @if(!empty($item->soldItem))
+                            <p class="sold">sold</p>
+                            @endif
                         </a>
                     </div>
                     @endforeach
@@ -65,12 +63,10 @@
                             <div class="item_img">
                                 <img src="{{ asset('storage/' . $like->item->item_path) }}" alt="{{ $like->item->item_name }}" />
                             </div>
-                            <div class="item_name">
-                                <p>{{ $like->item->item_name }}</p>
-                                @if(!empty($like->item->soldItem))
-                                <p class="sold">sold</p>
-                                @endif
-                            </div>
+                            <p>{{ $like->item->item_name }}</p>
+                            @if(!empty($like->item->soldItem))
+                            <p class="sold">sold</p>
+                            @endif
                         </a>
                     </div>
                     @endforeach

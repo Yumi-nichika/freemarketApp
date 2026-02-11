@@ -70,7 +70,7 @@ class ItemController extends Controller
     public function show($item_id)
     {
         //商品情報
-        $item = Item::with('condition', 'categories', 'soldItem')->find($item_id);
+        $item = Item::with('categories', 'soldItem')->find($item_id);
 
         //この商品の全体のいいね数
         $likes = Like::where('item_id', $item_id)->get();
