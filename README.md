@@ -85,6 +85,7 @@ php artisan key:generate
 - Laravel 8.83.29
 - mysql 8.0.26
 - nginx 1.21.1
+- mailhog 1.0.1
 
 # ER図
 ![ER図](./img/er.png)
