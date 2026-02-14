@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\VerificationCode;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationCodeMail;
@@ -26,6 +27,12 @@ class VerificationController extends Controller
         if (!$record) {
             return back()->withErrors(['code' => '認証コードが正しくないか、入力期限が切れています。']);
         }
+
+        //認証日時記録
+        User::where('id', $user->id)->update([
+            'email_verified_at' => now()
+        ]);
+
 
         $record->delete();
 
