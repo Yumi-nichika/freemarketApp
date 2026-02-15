@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
@@ -17,7 +16,7 @@ class MyListTest extends TestCase
 {
     use RefreshDatabase;
 
-    //購入済み商品テスト
+    //マイリスト表示テスト
     public function test_show_mylist_item()
     {
         //ユーザー作成
@@ -56,8 +55,17 @@ class MyListTest extends TestCase
         //検証
         $response->assertStatus(200);
 
-        // 画面内に商品名が含まれているか
-        $response->assertSee('テスト用商品A');
+        //マイリスト全体を抽出
+        $content = $response->getContent();
+        if (preg_match('/<div class="list mylist">.*?<\/div>\s*<\/div>\s*<\/div>/s', $content, $mylistArea)) {
+            $mylistHtml = $mylistArea[0];
+
+            //いいねした商品表示
+            $this->assertStringContainsString($item1->item_name, $mylistHtml);
+
+            //いいねしてない商品非表示
+            $this->assertStringNotContainsString($item2->item_name, $mylistHtml);
+        }
 
         // ビューに渡された変数の件数確認
         $response->assertViewHas('likes', function ($likes) {
@@ -112,7 +120,7 @@ class MyListTest extends TestCase
         if (preg_match('/<div class="list mylist">.*?<\/div>\s*<\/div>\s*<\/div>/s', $content, $mylistArea)) {
             $mylistHtml = $mylistArea[0];
 
-            //商品Aを抽出
+            //売却済み商品を抽出
             if (preg_match('/テスト用商品A.*?<\/a>/s', $mylistHtml, $itemABlock)) {
                 $itemAHtml = $itemABlock[0];
 

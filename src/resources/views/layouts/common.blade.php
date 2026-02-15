@@ -26,7 +26,6 @@ $showRight = View::getSection('show-right') === 'true';
 
             <div class="header__center">
                 <form action="/search" method="get">
-                    @csrf
                     <input type="hidden" name="tab" value="{{ request('tab') }}">
                     <input type="text" name="free" class="header__center-txt {{ $showCenter ? '' : 'is-hidden' }}" placeholder="なにをお探しですか？" value="{{ request('free') }}">
                 </form>

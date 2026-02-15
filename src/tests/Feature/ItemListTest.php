@@ -65,7 +65,7 @@ class ItemListTest extends TestCase
         if (preg_match('/<div class="list recommend">.*?<\/div>\s*<\/div>\s*<\/div>/s', $content, $listArea)) {
             $listHtml = $listArea[0];
 
-            //商品Aを抽出
+            //売却済み商品を抽出
             if (preg_match('/テスト用商品A.*?<\/a>/s', $listHtml, $itemABlock)) {
                 $itemAHtml = $itemABlock[0];
 

@@ -81,7 +81,7 @@
                     @foreach($comments as $comment)
                     <div class="item_details_comment_user">
                         <div class="icon-preview">
-                            <img src="{{ $comment->profile->icon_path ? asset('storage/' . $comment->profile->icon_path) : asset('img/icon_default.png') }}" alt="icon">
+                            <img src="{{ $comment->profile?->icon_path ? asset('storage/' . $comment->profile->icon_path) : asset('img/icon_default.png') }}" alt="icon">
                         </div>
                         <p>{{ $comment->user->name }}</p>
                     </div>
