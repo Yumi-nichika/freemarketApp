@@ -9,6 +9,9 @@ use App\Models\UserProfile;
 use App\Models\Item;
 use App\Models\Category;
 
+/**
+ * コメント送信機能
+ */
 class CommentTest extends TestCase
 {
     use RefreshDatabase;

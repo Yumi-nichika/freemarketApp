@@ -9,6 +9,9 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Like;
 
+/**
+ * いいね機能
+ */
 class LikeTest extends TestCase
 {
     use RefreshDatabase;
