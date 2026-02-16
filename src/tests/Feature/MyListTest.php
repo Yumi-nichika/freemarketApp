@@ -51,8 +51,6 @@ class MyListTest extends TestCase
 
         //商品一覧ページにアクセス
         $response = $this->get('/?tab=mylist');
-
-        //検証
         $response->assertStatus(200);
 
         //マイリスト全体を抽出
@@ -111,8 +109,6 @@ class MyListTest extends TestCase
 
         //商品一覧ページにアクセス
         $response = $this->get('/?tab=mylist');
-
-        //検証
         $response->assertStatus(200);
 
         //マイリスト全体を抽出
@@ -136,7 +132,6 @@ class MyListTest extends TestCase
     public function test_show_mylist_item_when_not_authenticated()
     {
         $response = $this->get('/?tab=mylist');
-
         $response->assertStatus(200);
 
         //マイリストのコンテナ要素非表示確認

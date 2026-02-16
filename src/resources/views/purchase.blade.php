@@ -50,10 +50,10 @@
                             <a href="/purchase/address/{{ $item->id }}" class="link">変更する</a>
                         </div>
                         <div class="shipping">
-                            〒<input type="text" name="shipping[post_code]" value="{{ $profile->post_code }}" readonly>
+                            〒<input type="text" name="shipping[post_code]" value="{{ $profile?->post_code }}" readonly>
                             <div class="shipping_address">
-                                <input type="text" name="shipping[address]" value="{{ $profile-> address}}" size="{{ mb_strlen($profile->address) }}" readonly>
-                                <input type="text" name="shipping[building]" value="{{ $profile->building }}" size="{{ mb_strlen($profile->building) }}" readonly>
+                                <input type="text" name="shipping[address]" value="{{ $profile?-> address}}" readonly>
+                                <input type="text" name="shipping[building]" value="{{ $profile?->building }}" readonly>
                             </div>
                         </div>
                         @error('shipping')

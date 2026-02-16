@@ -25,7 +25,7 @@
                 </div>
                 <div class="form__group-content">
                     <div class="form__input--text">
-                        <input type="text" name="post_code" value="{{ old('post_code', $user_profile->post_code) }}" />
+                        <input type="text" name="post_code" value="{{ old('post_code', $user_profile?->post_code) }}" />
                     </div>
                     @error('post_code')
                     <ul class="form-error">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form__group-content">
                     <div class="form__input--text">
-                        <input type="text" name="address" value="{{ old('address', $user_profile->address) }}" />
+                        <input type="text" name="address" value="{{ old('address', $user_profile?->address) }}" />
                     </div>
                     @error('address')
                     <ul class="form-error">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="form__group-content">
                     <div class="form__input--text">
-                        <input type="text" name="building" value="{{ old('building', $user_profile->building) }}" />
+                        <input type="text" name="building" value="{{ old('building', $user_profile?->building) }}" />
                     </div>
                     @error('building')
                     <ul class="form-error">

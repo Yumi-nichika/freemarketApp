@@ -114,7 +114,10 @@ class PurchaseController extends Controller
      */
     public function update(AddressRequest $request, $item_id)
     {
-        $user_profile = UserProfile::find(auth()->id());
+        //プロフィール作成・更新
+        $user_profile = UserProfile::firstOrNew([
+            'user_id' => auth()->id(),
+        ]);
 
         $data = $request->only([
             'post_code',

@@ -23,8 +23,6 @@ class ItemListTest extends TestCase
 
         //商品一覧ページにアクセス
         $response = $this->get('/');
-
-        //検証
         $response->assertStatus(200);
 
         // 画面内に商品名が含まれているか
@@ -56,8 +54,6 @@ class ItemListTest extends TestCase
 
         //商品一覧ページにアクセス
         $response = $this->get('/');
-
-        //検証
         $response->assertStatus(200);
 
         //商品一覧全体を抽出
@@ -109,8 +105,6 @@ class ItemListTest extends TestCase
 
         //商品一覧ページにアクセス
         $response = $this->get('/');
-
-        //検証
         $response->assertStatus(200);
 
 
