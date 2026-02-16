@@ -11,6 +11,7 @@ use App\Models\Category;
 
 /**
  * 配送先変更機能
+ * .env.testingにstripe決済に必要なキーを記述してから実行
  */
 class AddressTest extends TestCase
 {
