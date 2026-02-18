@@ -5,11 +5,12 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Item;
-use App\Models\Category;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * 出品商品情報登録機能
+ */
 class SellTest extends TestCase
 {
     use RefreshDatabase;
