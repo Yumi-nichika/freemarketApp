@@ -19,7 +19,7 @@ class UserProfileFactory extends Factory
             'post_code' => '100-0000',
             'address' => $this->faker->prefecture(),
             'building' => '建物名ダミー',
-            'icon_path' => null
+            'icon_path' => 'icons/test_icon.jpg'
         ];
     }
 }

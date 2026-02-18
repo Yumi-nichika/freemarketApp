@@ -68,7 +68,6 @@
             </div>
         </div>
 
-        @auth
         <div class="list buy">
             <div class="list-content">
                 <div class="grid">
@@ -83,7 +82,6 @@
                 </div>
             </div>
         </div>
-        @endauth
     </div>
 
 </div>

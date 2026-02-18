@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class UserProfilesTableSeeder extends Seeder
@@ -14,6 +15,20 @@ class UserProfilesTableSeeder extends Seeder
      */
     public function run()
     {
+        $images = [
+            'test_icon.jpg',
+        ];
+
+        foreach ($images as $image) {
+            $sourcePath = public_path('img/seeder/' . $image);
+            $fileName = $image;
+
+            Storage::disk('public')->put(
+                'icons/' . $fileName,
+                file_get_contents($sourcePath)
+            );
+        }
+
         $param = [
             'user_id' => 1,
             'post_code' => '100-0000',
