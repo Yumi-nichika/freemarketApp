@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\UserProfile;
 use App\Models\SoldItem;
@@ -15,13 +16,15 @@ class PurchaseController extends Controller
     /**
      * 商品購入画面表示
      */
-    public function show($item_id)
+    public function show(Request $request, $item_id)
     {
         $item = Item::find($item_id);
 
         $profile = UserProfile::find(auth()->id());
 
-        return view('purchase', compact('item', 'profile'));
+        $selectedMethod = $request->input('select_method', '');
+
+        return view('purchase', compact('item', 'profile', 'selectedMethod'));
     }
 
     /**

@@ -91,6 +91,8 @@ php artisan key:generate
 ![ER図](./img/er.png)
 
 # URL
+商品一覧画面（トップ画面）：http://localhost
+
 会員登録：http://localhost/register
 
 ログイン：http://localhost/login
@@ -112,3 +114,19 @@ mailhog:http://localhost:8025
 
 # stripe決済時のテストデータ
 カード番号：4242424242424242
+
+# PHPUnitでの単体テスト実行時
+
+### 1. .env.testingファイルを編集
+stripeのAPIキーを追記
+```env
+# stripe公開可能キー
+STRIPE_KEY=your_stripe_key
+# stripeシークレットキー
+STRIPE_SECRET=your_stripe_secret_key
+```
+
+### 2. アプリケーションの暗号化キーを生成
+```cmd
+php artisan key:generate --env=testing
+```
