@@ -130,3 +130,26 @@ STRIPE_SECRET=your_stripe_secret_key
 ```cmd
 php artisan key:generate --env=testing
 ```
+
+### 3. テスト用DBの作成
+mysqlのrootパスワードは「docker-compose.yml」に記載
+```cmd
+docker-compose exec mysql bash
+mysql -u root -p
+CREATE DATABASE laravel_db_test;
+exit;
+exit
+```
+
+### 4. マイグレーションを実行
+```cmd
+docker-compose exec php bash
+php artisan config:clear
+php artisan migrate --env=testing
+```
+
+### 5. テスト実行
+```cmd
+php artisan config:clear
+php artisan test
+```

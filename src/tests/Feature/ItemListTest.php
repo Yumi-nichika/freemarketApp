@@ -115,7 +115,7 @@ class ItemListTest extends TestCase
 
         //自分の商品（user2の商品）が表示されていないことを確認
         foreach ($item2 as $item) {
-            $response->assertDontSee($item->item_name);
+            $response->assertDontSeeText($item->item_name);
         }
     }
 }

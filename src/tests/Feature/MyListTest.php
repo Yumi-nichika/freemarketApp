@@ -135,6 +135,6 @@ class MyListTest extends TestCase
         $response->assertStatus(200);
 
         //マイリストのコンテナ要素非表示確認
-        $response->assertDontSee('<div class="list mylist">', false);
+        $response->assertDontSeeText('<div class="list mylist">', false);
     }
 }

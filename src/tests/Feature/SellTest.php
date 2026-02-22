@@ -26,40 +26,39 @@ class SellTest extends TestCase
     public function test_add_sell_item()
     {
         //ユーザー作成
-        $user = User::factory()->create([
-            'name' => 'テスト太郎',
-            'email' => 'test1@example.com',
-            'password' => bcrypt('password123'),
-        ]);
+        /** @var \App\Models\User $user */
+        $user = User::factory()->create();
 
         //ログイン
-        $response = $this->post('/login', [
-            'email' => 'test1@example.com',
-            'password' => 'password123',
-        ]);
-
-        //認証確認
-        $this->assertAuthenticatedAs($user);
+        $this->actingAs($user);
 
         //出品画面にアクセス
         $response = $this->get('/sell');
         $response->assertStatus(200);
 
-        //ダミー商品画像
+        //商品画像
         Storage::fake('public');
-        $file = UploadedFile::fake()->create('item.jpg', 100, 'image/jpeg');
+        $file = UploadedFile::fake()->image('item.jpg');
+        $tmpPath = $file->store('tmp', 'public');
+
+        //カテゴリをDBから取得
+        $categoryId = \App\Models\Category::first()->id;
 
         //出品
-        $formData = [
+        $response = $this->withSession([
+            'tmp_item_image_path' => $tmpPath,
+        ])->post('/sell', [
             'item_image' => $file,
-            'categories' => [1],
+            'categories' => [$categoryId],
             'condition_id' => 2,
             'item_name' => 'テスト用商品A',
             'brand_name' => 'テストブランド',
             'detail' => '商品の説明です。',
             'price' => 500,
-        ];
-        $response = $this->post("/sell", $formData);
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
 
         //登録確認
         $this->assertDatabaseHas('items', [
@@ -69,20 +68,19 @@ class SellTest extends TestCase
             'price' => 500,
             'condition_id' => 2,
             'detail' => '商品の説明です。',
-            'item_path' => 'items/' . $file->hashName(),
+            'item_path' => 'items/' . basename($tmpPath),
         ]);
 
-        $savedItem = \App\Models\Item::where('user_id', $user->id)->first();
+        $item = \App\Models\Item::first();
 
         $this->assertDatabaseHas('category_item', [
-            'item_id' => $savedItem->id,
-            'category_id' => 1,
+            'item_id' => $item->id,
+            'category_id' => $categoryId,
         ]);
 
         //画像保存確認
-        $this->assertTrue(
-            Storage::disk('public')->exists('items/' . $file->hashName()),
-            "File was not saved."
-        );
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk = Storage::disk('public');
+        $disk->assertExists('items/' . basename($tmpPath));
     }
 }
