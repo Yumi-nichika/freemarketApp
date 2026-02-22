@@ -14,12 +14,14 @@ class CreateUserProfiles extends Migration
     public function up()
     {
         Schema::create('user_profiles', function (Blueprint $table) {
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('post_code', 8);
             $table->string('address');
             $table->string('building')->nullable();
             $table->string('icon_path')->nullable();
             $table->timestamps();
+
+            $table->primary(['user_id']);
         });
     }
 

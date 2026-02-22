@@ -11,6 +11,7 @@ use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
 use Laravel\Fortify\Contracts\RegisterResponse;
+use App\Http\Controllers\VerificationController;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,11 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 return redirect('/email-sent');
             }
+        });
+
+        //メール認証が完了していない場合
+        Fortify::verifyEmailView(function () {
+            return app(VerificationController::class)->resendAndShow();
         });
 
 

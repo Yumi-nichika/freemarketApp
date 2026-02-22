@@ -15,8 +15,8 @@ class CreateSoldItemsTable extends Migration
     {
         Schema::create('sold_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('item_id');
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('user_id');
             $table->tinyInteger('payment_method')->comment('1:コンビニ払い 2:カード支払い');
             $table->string('post_code', 8);
             $table->string('address');

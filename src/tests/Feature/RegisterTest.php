@@ -17,7 +17,6 @@ use App\Mail\VerificationCodeMail;
 class RegisterTest extends TestCase
 {
     use RefreshDatabase;
-    use WithoutMiddleware;
 
     /**
      * バリデーションエラーの全パターンをテスト
@@ -77,6 +76,10 @@ class RegisterTest extends TestCase
         //データベース登録確認
         $this->assertDatabaseHas('users', ['email' => 'test@example.com']);
 
+        //メール認証誘導画面に遷移
+        $user = User::where('email', 'test@example.com')->first();
+        $this->actingAs($user)->get('/email-sent');
+
         //メール送信確認
         Mail::assertSent(VerificationCodeMail::class, function ($mail) {
             return $mail->hasTo('test@example.com');
@@ -133,6 +136,7 @@ class RegisterTest extends TestCase
 
         //認証コード取得
         $user = User::where('email', 'test@example.com')->first();
+        $this->actingAs($user)->get('/email-sent');
         $verificationCode = VerificationCode::where('user_id', $user->id)->first();
 
         //メール認証画面へ遷移し、コードを入力して認証

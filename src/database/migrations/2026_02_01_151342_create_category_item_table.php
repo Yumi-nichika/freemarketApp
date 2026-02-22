@@ -14,20 +14,11 @@ class CreateCategoryItemTable extends Migration
     public function up()
     {
         Schema::create('category_item', function (Blueprint $table) {
-            $table->unsignedBigInteger('item_id');
-            $table->unsignedBigInteger('category_id');
+            $table->foreignId('item_id')->constrained('items')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
 
             // 複合主キー
             $table->primary(['item_id', 'category_id']);
-
-            // 外部キー
-            $table->foreign('item_id')
-                ->references('id')->on('items')
-                ->onDelete('cascade');
-
-            $table->foreign('category_id')
-                ->references('id')->on('categories')
-                ->onDelete('cascade');
         });
     }
 

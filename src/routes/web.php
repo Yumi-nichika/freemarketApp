@@ -18,28 +18,25 @@ use App\Http\Controllers\VerificationController;
 |
 */
 
-Route::get('/email-sent', function () {
-    return view('auth.email-sent');
+Route::middleware(['auth'])->group(function () {
+    // 認証待ち画面へアクセスしたときに resendAndShow メソッドを呼ぶ
+    Route::get('/email-sent', [VerificationController::class, 'resendAndShow'])
+        ->name('verification.notice');
+        
+    Route::get('/verify-code', function () {
+        return view('auth.verify-code');
+    });
+    Route::post('/verify-code', [VerificationController::class, 'verify']);
+    Route::post('/resend-code', [VerificationController::class, 'resend']);
 });
-Route::post('/resend-code', [VerificationController::class, 'resend']);
-
-Route::get('/verify-code', function () {
-    return view('auth.verify-code');
-});
-
-Route::post('/verify-code', [VerificationController::class, 'verify']);
-
-
-
 
 
 Route::get('/', [ItemController::class, 'index']);
-
 Route::get('/search', [ItemController::class, 'search']);
-
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
 
-Route::middleware('auth')->group(function () {
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/item/{item_id}/like', [ItemController::class, 'like']);
     Route::post('/item/{item_id}/comment', [ItemController::class, 'comment']);
 

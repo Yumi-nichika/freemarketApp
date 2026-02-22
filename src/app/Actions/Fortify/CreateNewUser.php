@@ -30,16 +30,6 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($validated['password']),
         ]);
 
-        $code = rand(1000, 9999);
-
-        VerificationCode::create([
-            'user_id' => $user->id,
-            'code' => $code,
-            'expires_at' => now()->addMinutes(5),
-        ]);
-
-        Mail::to($user->email)->send(new VerificationCodeMail($code));
-
         return $user;
     }
 }

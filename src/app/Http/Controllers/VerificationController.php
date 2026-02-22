@@ -29,9 +29,7 @@ class VerificationController extends Controller
         }
 
         //認証日時記録
-        User::where('id', $user->id)->update([
-            'email_verified_at' => now()
-        ]);
+        $user->markEmailAsVerified();
 
 
         $record->delete();
@@ -59,5 +57,34 @@ class VerificationController extends Controller
         Mail::to($user->email)->send(new VerificationCodeMail($code));
 
         return back()->with('message', '認証メールを再送しました');
+    }
+
+    public function resendAndShow()
+    {
+        $user = Auth::user();
+
+        // すでに認証済みの場合はマイページなどへ飛ばす（無限ループ防止）
+        if ($user->hasVerifiedEmail()) {
+            return redirect('/');
+        }
+
+        $exists = VerificationCode::where('user_id', $user->id)
+            ->where('expires_at', '>', now())
+            ->exists();
+
+        if (!$exists) {
+            VerificationCode::where('user_id', $user->id)->delete();
+
+            $code = rand(1000, 9999);
+            VerificationCode::create([
+                'user_id' => $user->id,
+                'code' => $code,
+                'expires_at' => now()->addMinutes(5),
+            ]);
+
+            Mail::to($user->email)->send(new VerificationCodeMail($code));
+        }
+        
+        return view('auth.email-sent');
     }
 }
