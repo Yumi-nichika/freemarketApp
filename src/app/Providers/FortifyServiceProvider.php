@@ -12,6 +12,8 @@ use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use App\Http\Requests\LoginRequest;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Controllers\VerificationController;
+use Laravel\Fortify\Contracts\LoginResponse;
+use Illuminate\Support\Facades\Auth;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -57,6 +59,22 @@ class FortifyServiceProvider extends ServiceProvider
 
         //ログイン時のバリデーションをカスタム
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+
+        // ログイン成功時のリダイレクト先をカスタマイズ
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request)
+            {
+                $user = Auth::user();
+
+                // メール認証が終わっていない場合
+                if ($user && !$user->hasVerifiedEmail()) {
+                    return redirect('/email-sent');
+                }
+
+                // 認証済み
+                return redirect('/?tab=mylist');
+            }
+        });
 
         //連続ログインブロック
         RateLimiter::for('login', function (Request $request) {
