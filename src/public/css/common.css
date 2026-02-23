@@ -119,7 +119,6 @@ button.button_blue {
 .content {
     margin: 50px auto 30px;
     max-width: 1230px;
-    color: var(--main_color);
 }
 
 .content-title {

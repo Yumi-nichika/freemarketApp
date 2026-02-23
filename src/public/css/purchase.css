@@ -10,6 +10,10 @@
     border-bottom: 1px solid #000;
 }
 
+.purchase-content_left {
+    width: 70%;
+}
+
 .item_detail {
     display: flex;
     gap: 50px;
@@ -26,7 +30,7 @@
 }
 
 .purchase-content_right {
-    width: 40%;
+    width: 30%;
     text-align: left;
 }
 
